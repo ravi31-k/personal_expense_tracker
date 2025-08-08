@@ -1,0 +1,22 @@
+/* src/components/ExpenseForm.css */
+.glass-card {
+  border-radius: 15px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.05));
+  backdrop-filter: blur(8px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  transition: background 0.3s ease, transform 0.2s;
+}
+
+.glass-card:hover {
+  transform: scale(1.01);
+  background: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0.1));
+}
+
+.submit-btn {
+  transition: all 0.3s ease;
+}
+
+.submit-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.5);
+}
