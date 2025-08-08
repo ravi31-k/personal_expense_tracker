@@ -44,7 +44,7 @@ export default function ExpenseForm({ token, onExpenseAdded }) {
       }
 
       await axios.post(
-        "http://localhost:5000/api/expenses",
+        "https://your-backend.onrender.com/api/expenses", //yaha change kara h
         { ...formData, userId }, // Include userId
         {
           headers: { Authorization: `Bearer ${token}` },
