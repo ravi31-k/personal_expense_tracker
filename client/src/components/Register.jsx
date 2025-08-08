@@ -30,7 +30,7 @@ export default function Register({ setToken }) {
     try {
       setLoading(true);
 
-      const response = await fetch("https://your-backend.onrender.com/api/auth/login", { // yaha change kara h 
+      const response = await fetch("https://your-backend.onrender.com/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
