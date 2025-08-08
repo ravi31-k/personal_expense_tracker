@@ -1,6 +1,7 @@
 // src/components/Register.jsx
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { BACKEND_URL } from "../config";
 
 export default function Register({ setToken }) {
   const navigate = useNavigate();
@@ -30,7 +31,7 @@ export default function Register({ setToken }) {
     try {
       setLoading(true);
 
-      const response = await fetch("https://your-backend.onrender.com/api/auth/register", {
+      const response = await fetch(`${BACKEND_URL}/api/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -44,11 +45,10 @@ export default function Register({ setToken }) {
         return;
       }
 
-      // Save token & userId in localStorage
       localStorage.setItem("token", data.token);
       localStorage.setItem("userId", data.userId);
 
-      if (setToken) setToken(data.token); // optional safety
+      if (setToken) setToken(data.token);
       navigate("/");
     } catch (err) {
       console.error("Registration error:", err);

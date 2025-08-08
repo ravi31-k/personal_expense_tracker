@@ -1,6 +1,7 @@
 // src/components/Login.jsx
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { BACKEND_URL } from "../config";
 
 export default function Login({ setToken }) {
   const navigate = useNavigate();
@@ -25,10 +26,10 @@ export default function Login({ setToken }) {
 
     try {
       setLoading(true);
-      const response = await fetch("https://your-backend.onrender.com/api/auth/login", { // yaha change kara h 
+      const response = await fetch(`${BACKEND_URL}/api/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(formData),
       });
 
       const data = await response.json();
@@ -39,11 +40,10 @@ export default function Login({ setToken }) {
         return;
       }
 
-      // Save token & userId in localStorage
       localStorage.setItem("token", data.token);
       localStorage.setItem("userId", data.userId);
 
-      if (setToken) setToken(data.token); // optional safety
+      if (setToken) setToken(data.token);
       navigate("/");
     } catch (err) {
       console.error("Login error:", err);

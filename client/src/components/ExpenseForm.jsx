@@ -1,5 +1,7 @@
+// src/components/ExpenseForm.jsx
 import React, { useState } from "react";
 import axios from "axios";
+import { BACKEND_URL } from "../config";
 
 const categoryOptions = [
   { label: "🍔 Food", value: "Food" },
@@ -30,7 +32,6 @@ export default function ExpenseForm({ token, onExpenseAdded }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validation
     if (!formData.title || !formData.amount || !formData.date) {
       setError("All fields are required.");
       return;
@@ -44,8 +45,8 @@ export default function ExpenseForm({ token, onExpenseAdded }) {
       }
 
       await axios.post(
-        "https://your-backend.onrender.com/api/expenses", //yaha change kara h
-        { ...formData, userId }, // Include userId
+        `${BACKEND_URL}/api/expenses`,
+        { ...formData, userId },
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -74,7 +75,9 @@ export default function ExpenseForm({ token, onExpenseAdded }) {
 
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
-          <label htmlFor="title" className="form-label">Title</label>
+          <label htmlFor="title" className="form-label">
+            Title
+          </label>
           <input
             type="text"
             className="form-control"
@@ -87,7 +90,9 @@ export default function ExpenseForm({ token, onExpenseAdded }) {
         </div>
 
         <div className="mb-3">
-          <label htmlFor="amount" className="form-label">Amount (₹)</label>
+          <label htmlFor="amount" className="form-label">
+            Amount (₹)
+          </label>
           <input
             type="number"
             className="form-control"
@@ -102,7 +107,9 @@ export default function ExpenseForm({ token, onExpenseAdded }) {
         </div>
 
         <div className="mb-3">
-          <label htmlFor="category" className="form-label">Category</label>
+          <label htmlFor="category" className="form-label">
+            Category
+          </label>
           <select
             className="form-select"
             id="category"
@@ -111,13 +118,17 @@ export default function ExpenseForm({ token, onExpenseAdded }) {
             onChange={handleChange}
           >
             {categoryOptions.map((opt) => (
-              <option key={opt.value} value={opt.value}>{opt.label}</option>
+              <option key={opt.value} value={opt.value}>
+                {opt.label}
+              </option>
             ))}
           </select>
         </div>
 
         <div className="mb-3">
-          <label htmlFor="date" className="form-label">Date</label>
+          <label htmlFor="date" className="form-label">
+            Date
+          </label>
           <input
             type="date"
             className="form-control"
