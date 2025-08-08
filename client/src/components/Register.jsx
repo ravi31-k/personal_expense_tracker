@@ -1,7 +1,8 @@
 // src/components/Register.jsx
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { BACKEND_URL } from "../config";
+
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
 export default function Register({ setToken }) {
   const navigate = useNavigate();
@@ -34,7 +35,7 @@ export default function Register({ setToken }) {
       const response = await fetch(`${BACKEND_URL}/api/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ name, age, email, password }),
       });
 
       const data = await response.json();
@@ -60,7 +61,6 @@ export default function Register({ setToken }) {
   return (
     <div className="container mt-5">
       <h2>📝 Register</h2>
-
       {error && <p className="text-danger">{error}</p>}
 
       <form onSubmit={handleSubmit} noValidate>

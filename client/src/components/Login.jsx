@@ -1,7 +1,8 @@
 // src/components/Login.jsx
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { BACKEND_URL } from "../config";
+
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
 export default function Login({ setToken }) {
   const navigate = useNavigate();
@@ -18,7 +19,6 @@ export default function Login({ setToken }) {
     setError("");
 
     const { email, password } = formData;
-
     if (!email || !password) {
       setError("Please fill in all fields.");
       return;
@@ -29,7 +29,7 @@ export default function Login({ setToken }) {
       const response = await fetch(`${BACKEND_URL}/api/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ email, password }),
       });
 
       const data = await response.json();
@@ -40,6 +40,7 @@ export default function Login({ setToken }) {
         return;
       }
 
+      // Save token and userId locally
       localStorage.setItem("token", data.token);
       localStorage.setItem("userId", data.userId);
 
@@ -55,7 +56,6 @@ export default function Login({ setToken }) {
   return (
     <div className="container mt-5">
       <h2>🔐 Login</h2>
-
       {error && <p className="text-danger">{error}</p>}
 
       <form onSubmit={handleSubmit} noValidate>
